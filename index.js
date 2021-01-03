@@ -1,11 +1,14 @@
 module.exports = {
+	parserOptions: {
+		ecmaVersion: 2020,
+		sourceType: 'module',
+		ecmaFeatures: {
+			jsx: true
+		}
+	},
 	plugins: [
 		'eslint-plugin-import'
 	],
-	parserOptions: {
-		ecmaVersion: 2020,
-		sourceType: 'module'
-	},
 	rules: {
 		// ███████╗███████╗██╗     ██╗███╗   ██╗████████╗     ██████╗ ██████╗ ██████╗ ███████╗
 		// ██╔════╝██╔════╝██║     ██║████╗  ██║╚══██╔══╝    ██╔════╝██╔═══██╗██╔══██╗██╔════╝
