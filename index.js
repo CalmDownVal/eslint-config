@@ -7,14 +7,14 @@ module.exports = {
 		sourceType: 'module'
 	},
 	rules: {
-		//  ███████╗███████╗██╗     ██╗███╗   ██╗████████╗     ██████╗ ██████╗ ██████╗ ███████╗
-		//  ██╔════╝██╔════╝██║     ██║████╗  ██║╚══██╔══╝    ██╔════╝██╔═══██╗██╔══██╗██╔════╝
-		//  █████╗  ███████╗██║     ██║██╔██╗ ██║   ██║       ██║     ██║   ██║██████╔╝█████╗
-		//  ██╔══╝  ╚════██║██║     ██║██║╚██╗██║   ██║       ██║     ██║   ██║██╔══██╗██╔══╝
-		//  ███████╗███████║███████╗██║██║ ╚████║   ██║       ╚██████╗╚██████╔╝██║  ██║███████╗
-		//  ╚══════╝╚══════╝╚══════╝╚═╝╚═╝  ╚═══╝   ╚═╝        ╚═════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝
+		// ███████╗███████╗██╗     ██╗███╗   ██╗████████╗     ██████╗ ██████╗ ██████╗ ███████╗
+		// ██╔════╝██╔════╝██║     ██║████╗  ██║╚══██╔══╝    ██╔════╝██╔═══██╗██╔══██╗██╔════╝
+		// █████╗  ███████╗██║     ██║██╔██╗ ██║   ██║       ██║     ██║   ██║██████╔╝█████╗
+		// ██╔══╝  ╚════██║██║     ██║██║╚██╗██║   ██║       ██║     ██║   ██║██╔══██╗██╔══╝
+		// ███████╗███████║███████╗██║██║ ╚████║   ██║       ╚██████╗╚██████╔╝██║  ██║███████╗
+		// ╚══════╝╚══════╝╚══════╝╚═╝╚═╝  ╚═══╝   ╚═╝        ╚═════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝
 
-		// enforce 'for' loop update clause moving the counter in the right direction.
+		// enforce 'for' loop update clause moving the counter in the right direction
 		// https://eslint.org/docs/rules/for-direction
 		'for-direction': 'warn',
 
@@ -263,7 +263,6 @@ module.exports = {
 
 		// enforce `return` statements in callbacks of array methods
 		// https://eslint.org/docs/rules/array-callback-return
-		// TODO: turn off with TS
 		'array-callback-return': [
 			'warn',
 			{
@@ -441,7 +440,6 @@ module.exports = {
 
 		// disallow declarations in the global scope
 		// https://eslint.org/docs/rules/no-implicit-globals
-		// TODO: disable VARs entirely, only allow LET and CONST
 		'no-implicit-globals': [
 			'error',
 			{
@@ -486,7 +484,7 @@ module.exports = {
 		// https://eslint.org/docs/rules/no-magic-numbers
 		'no-magic-numbers': [
 			'warn',
-			{ ignore: [ 0, 1 ] }
+			{ ignore: [ 0, 1, 2 ] }
 		],
 
 		// disallow multiple spaces
@@ -674,7 +672,6 @@ module.exports = {
 
 		// require `var` declarations be placed at the top of their containing scope
 		// https://eslint.org/docs/rules/vars-on-top
-		// TODO: disable VARs entirely, only allow LET and CONST
 		'vars-on-top': 'warn',
 
 		// require parentheses around immediate `function` invocations
@@ -698,7 +695,6 @@ module.exports = {
 
 		// require or disallow strict mode directives
 		// https://eslint.org/docs/rules/strict
-		// TODO: disable this for TypeScript
 		'strict': [
 			'warn',
 			'safe'
@@ -761,7 +757,7 @@ module.exports = {
 			'error',
 			{
 				functions: false,
-				classes: false,
+				classes: true,
 				variables: true
 			}
 		],
@@ -1016,9 +1012,6 @@ module.exports = {
 				beforeColon: false,
 				afterColon: true,
 				mode: 'strict'
-				// NOTE: there's one more property `align` which is turned off by default.
-				// Setting its configuration activates it and therefore no explicit config
-				// can enforce this to be off for future-proofing
 			}
 		],
 
@@ -1422,7 +1415,7 @@ module.exports = {
 		// https://eslint.org/docs/rules/prefer-exponentiation-operator
 		'prefer-exponentiation-operator': 'warn',
 
-		// disallow using Object.assign with an object literal as the first argument and prefer the use of object spread instead.
+		// disallow using Object.assign with an object literal as the first argument and prefer the use of object spread instead
 		// https://eslint.org/docs/rules/prefer-object-spread
 		'prefer-object-spread': 'warn',
 
@@ -1774,12 +1767,12 @@ module.exports = {
 			}
 		],
 
-		//  ██╗███╗   ███╗██████╗  ██████╗ ██████╗ ████████╗███████╗
-		//  ██║████╗ ████║██╔══██╗██╔═══██╗██╔══██╗╚══██╔══╝██╔════╝
-		//  ██║██╔████╔██║██████╔╝██║   ██║██████╔╝   ██║   ███████╗
-		//  ██║██║╚██╔╝██║██╔═══╝ ██║   ██║██╔══██╗   ██║   ╚════██║
-		//  ██║██║ ╚═╝ ██║██║     ╚██████╔╝██║  ██║   ██║   ███████║
-		//  ╚═╝╚═╝     ╚═╝╚═╝      ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚══════╝
+		// ██╗███╗   ███╗██████╗  ██████╗ ██████╗ ████████╗███████╗
+		// ██║████╗ ████║██╔══██╗██╔═══██╗██╔══██╗╚══██╔══╝██╔════╝
+		// ██║██╔████╔██║██████╔╝██║   ██║██████╔╝   ██║   ███████╗
+		// ██║██║╚██╔╝██║██╔═══╝ ██║   ██║██╔══██╗   ██║   ╚════██║
+		// ██║██║ ╚═╝ ██║██║     ╚██████╔╝██║  ██║   ██║   ███████║
+		// ╚═╝╚═╝     ╚═╝╚═╝      ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚══════╝
 
 		// ensure imports point to a file/module that can be resolved
 		// https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-unresolved.md
@@ -1840,7 +1833,7 @@ module.exports = {
 		'import/no-self-import': 'error',
 
 		// forbid a module from importing a module with a dependency path back to itself
-		//https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-cycle.md
+		// https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-cycle.md
 		'import/no-cycle': [
 			'error',
 			{

@@ -44,3 +44,21 @@ Required dependencies:
 
 - `eslint`
 - `eslint-plugin-import`
+
+### 2. TypeScript Configuration
+
+This configuration replaces some of the default rules to work with TypeScript
+and adds plenty additional rules that are TS-specific. Also configures the
+Import plugin to resolve TS paths correctly.
+
+Config extension:
+
+```js
+"@calmdownval/eslint-config/typescript"
+```
+
+Required dependencies:
+
+- `eslint-import-resolver-typescript`
+- `@typescript-eslint/eslint-plugin`
+- `@typescript-eslint/parser`
