@@ -1788,7 +1788,6 @@ module.exports = {
 			{
 				commonjs: false,
 				amd: false,
-				ignore: [],
 				caseSensitive: true
 			}
 		],
