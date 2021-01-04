@@ -757,12 +757,14 @@ module.exports = {
 		'no-empty-function': 'off',
 		'@typescript-eslint/no-empty-function': [
 			'warn',
-			[
-				'arrowFunctions',
-				'private-constructors',
-				'protected-constructors',
-				'decoratedFunctions'
-			]
+			{
+				allow: [
+					'arrowFunctions',
+					'private-constructors',
+					'protected-constructors',
+					'decoratedFunctions'
+				]
+			}
 		],
 
 		// disallow unnecessary parentheses

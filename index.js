@@ -384,7 +384,9 @@ module.exports = {
 		// https://eslint.org/docs/rules/no-empty-function
 		'no-empty-function': [
 			'warn',
-			[ 'arrowFunctions' ]
+			{
+				allow: [ 'arrowFunctions' ]
+			}
 		],
 
 		// disallow empty destructuring patterns
