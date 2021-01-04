@@ -1,5 +1,10 @@
 module.exports = {
 	parser: '@typescript-eslint/parser',
+	parserOptions: {
+		// extending configs may need to reconfigure this path/glob
+		// https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/parser#parseroptionsproject
+		project: './tsconfig.json'
+	},
 	plugins: [
 		'@typescript-eslint'
 	],
@@ -947,9 +952,11 @@ module.exports = {
 		},
 		'import/resolver': {
 			typescript: {
-				alwaysTryTypes: true
-				// extending configs may need to configure the 'project' setting
+				alwaysTryTypes: true,
+
+				// extending configs may need to reconfigure this path/glob
 				// https://github.com/alexgorbatchev/eslint-import-resolver-typescript#configuration
+				project: './tsconfig.json'
 			}
 		}
 	}

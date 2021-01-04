@@ -31,6 +31,8 @@ project. This includes all of the core ESLint rules and the Import plugin.
 
 **You should always include this configuration.**
 
+`.eslintrc`:
+
 ```json
 {
   "root": true,
@@ -51,10 +53,16 @@ This configuration replaces some of the default rules to work with TypeScript
 and adds plenty additional rules that are TS-specific. Also configures the
 Import plugin to resolve TS paths correctly.
 
-Config extension:
+`.eslintrc`:
 
-```js
-"@calmdownval/eslint-config/typescript"
+```json
+{
+  "root": true,
+  "extends": [
+    "@calmdownval/eslint-config",
+    "@calmdownval/eslint-config/typescript"
+  ]
+}
 ```
 
 Required dependencies:
@@ -62,3 +70,28 @@ Required dependencies:
 - `eslint-import-resolver-typescript`
 - `@typescript-eslint/eslint-plugin`
 - `@typescript-eslint/parser`
+
+Monorepos and other non-trivial projects may need to reconfigure:
+
+- the `project` parser option [as documented here](https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/parser#parseroptionsproject).
+- the `project` resolver option [as documented here](https://github.com/alexgorbatchev/eslint-import-resolver-typescript#configuration).
+
+Unfortunately the configs are very similar yet for two different modules so
+configuration usually leads to duplication, therefore switching to a JS config
+and using a shared constant may be beneficial in such cases. A monorepo with
+sub-projects in the `packages` directory might use the following configuration:
+
+```json
+{
+  "parserOptions": {
+    "project": "./packages/**/tsconfig.json"
+  },
+  "settings": {
+    "import/resolver": {
+      "typescript": {
+        "project": "./packages/**/tsconfig.json"
+      }
+    }
+  }
+}
+```
