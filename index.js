@@ -207,10 +207,12 @@ module.exports = {
 		// https://eslint.org/docs/rules/no-unreachable-loop
 		'no-unreachable-loop': [
 			'warn',
-			[
-				'ForInStatement',
-				'ForOfStatement'
-			]
+			{
+				ignore: [
+					'ForInStatement',
+					'ForOfStatement'
+				]
+			}
 		],
 
 		// disallow control flow statements in `finally` blocks
