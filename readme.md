@@ -67,9 +67,9 @@ Import plugin to resolve TS paths correctly.
 
 Required dependencies:
 
-- `eslint-import-resolver-typescript`
 - `@typescript-eslint/eslint-plugin`
 - `@typescript-eslint/parser`
+- `eslint-import-resolver-typescript`
 
 Monorepos and other non-trivial projects may need to reconfigure:
 
