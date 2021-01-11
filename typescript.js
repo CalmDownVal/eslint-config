@@ -63,6 +63,7 @@ module.exports = {
 		'@typescript-eslint/ban-types': [
 			'warn',
 			{
+				extendDefaults: false,
 				types: {
 					String: {
 						fixWith: 'string',
