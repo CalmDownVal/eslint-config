@@ -638,7 +638,7 @@ module.exports = {
 		'no-warning-comments': [
 			'warn',
 			{
-				terms: [ 'todo', 'fixme' ],
+				terms: [ 'todo', 'fixme', 'future' ],
 				location: 'start'
 			}
 		],
@@ -756,7 +756,18 @@ module.exports = {
 
 		// disallow unused variables
 		// https://eslint.org/docs/rules/no-unused-vars
-		'no-unused-vars': 'warn',
+		'no-unused-vars': [
+			'warn',
+			{
+				vars: 'all',
+				varsIgnorePattern: '^_',
+				args: 'all',
+				ignoreRestSiblings: true,
+				argsIgnorePattern: '^_',
+				caughtErrors: 'all',
+				caughtErrorsIgnorePattern: '^_'
+			}
+		],
 
 		// disallow the use of variables before they are defined
 		// https://eslint.org/docs/rules/no-use-before-define
@@ -833,7 +844,7 @@ module.exports = {
 			'warn',
 			'never',
 			{
-				ignorePattern: '',
+				ignorePattern: 'TODO|FIXME|FUTURE',
 				ignoreInlineComments: false,
 				ignoreConsecutiveComments: false
 			}
@@ -1057,8 +1068,8 @@ module.exports = {
 			{
 				beforeBlockComment: true,
 				afterBlockComment: false,
-				beforeLineComment: true,
-				afterLineComment: true,
+				beforeLineComment: false,
+				afterLineComment: false,
 				allowBlockStart: true,
 				allowBlockEnd: true,
 				allowClassStart: true,
@@ -1092,7 +1103,7 @@ module.exports = {
 			'warn',
 			{
 				tabWidth: 4,
-				code: 80,
+				code: 120,
 				comments: 80,
 				ignoreComments: false,
 				ignoreTrailingComments: false,
@@ -1486,7 +1497,7 @@ module.exports = {
 		'space-before-blocks': [
 			'warn',
 			{
-				functions: 'never',
+				functions: 'always',
 				keywords: 'always',
 				classes: 'always'
 			}

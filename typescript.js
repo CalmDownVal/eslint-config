@@ -257,13 +257,13 @@ module.exports = {
 		'@typescript-eslint/naming-convention': [
 			'warn',
 			{
-				selector: 'default',
+				selector: ['default'],
 				format: ['camelCase'],
 				leadingUnderscore: 'forbid',
 				trailingUnderscore: 'forbid'
 			},
 			{
-				selector: 'typeLike',
+				selector: ['typeLike'],
 				format: ['PascalCase']
 			},
 			{
@@ -272,13 +272,13 @@ module.exports = {
 				leadingUnderscore: 'allowSingleOrDouble'
 			},
 			{
-				selector: 'variable',
+				selector: ['variableLike'],
 				modifiers: ['const', 'global'],
-				format: ['UPPER_CASE'],
+				format: ['camelCase', 'PascalCase', 'UPPER_CASE'],
 				leadingUnderscore: 'forbid'
 			},
 			{
-				selector: 'enumMember',
+				selector: ['enumMember'],
 				format: ['PascalCase'],
 				leadingUnderscore: 'forbid'
 			}
@@ -874,7 +874,18 @@ module.exports = {
 		// disallow unused variables
 		// https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/no-unused-vars.md
 		'no-unused-vars': 'off',
-		'@typescript-eslint/no-unused-vars': 'warn',
+		'@typescript-eslint/no-unused-vars': [
+			'warn',
+			{
+				vars: 'all',
+				varsIgnorePattern: '^_',
+				args: 'all',
+				ignoreRestSiblings: true,
+				argsIgnorePattern: '^_',
+				caughtErrors: 'all',
+				caughtErrorsIgnorePattern: '^_'
+			}
+		],
 
 		// disallow the use of variables before they are defined
 		// https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/no-use-before-define.md
