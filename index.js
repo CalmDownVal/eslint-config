@@ -800,7 +800,7 @@ module.exports = {
 			WARN,
 			'always',
 			{
-				singleValue: false,
+				singleValue: true,
 				objectsInArrays: false,
 				arraysInArrays: false
 			}
@@ -928,11 +928,7 @@ module.exports = {
 
 		// enforce the consistent use of either `function` declarations or expressions
 		// https://eslint.org/docs/rules/func-style
-		'func-style': [
-			WARN,
-			'declaration',
-			{ allowArrowFunctions: true }
-		],
+		'func-style': OFF,
 
 		// enforce line breaks between arguments of a function call
 		// https://eslint.org/docs/rules/function-call-argument-newline
@@ -1132,10 +1128,7 @@ module.exports = {
 
 		// enforce a particular style for multiline comments
 		// https://eslint.org/docs/rules/multiline-comment-style
-		'multiline-comment-style': [
-			WARN,
-			'starred-block'
-		],
+		'multiline-comment-style': OFF,
 
 		// enforce newlines between operands of ternary expressions
 		// https://eslint.org/docs/rules/multiline-ternary
@@ -1438,7 +1431,7 @@ module.exports = {
 			WARN,
 			{
 				before: false,
-				after: false
+				after: true
 			}
 		],
 
@@ -1508,7 +1501,9 @@ module.exports = {
 			WARN,
 			'always',
 			{
-				line: {},
+				line: {
+					markers: [ '/', '#region', '#endregion' ]
+				},
 				block: {
 					markers: [ '*' ],
 					balanced: true
@@ -1675,8 +1670,8 @@ module.exports = {
 		'prefer-const': [
 			WARN,
 			{
-				destructuring: 'any',
-				ignoreReadBeforeAssign: false
+				destructuring: 'all',
+				ignoreReadBeforeAssign: true
 			}
 		],
 

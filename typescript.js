@@ -126,13 +126,7 @@ module.exports = {
 
 		// enforces consistent usage of type assertions
 		// https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/consistent-type-assertions.md
-		'@typescript-eslint/consistent-type-assertions': [
-			WARN,
-			{
-				assertionStyle: 'as',
-				objectLiteralTypeAssertions: 'allow-as-parameter'
-			}
-		],
+		'@typescript-eslint/consistent-type-assertions': OFF,
 
 		// consistent with type definition either interface or type
 		// https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/consistent-type-definitions.md
@@ -242,10 +236,7 @@ module.exports = {
 
 		// enforces using a particular method signature syntax
 		// https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/method-signature-style.md
-		'@typescript-eslint/method-signature-style': [
-			WARN,
-			'property'
-		],
+		'@typescript-eslint/method-signature-style': OFF,
 
 		// enforces naming conventions for everything across a codebase
 		// https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/naming-convention.md
@@ -783,7 +774,7 @@ module.exports = {
 			{
 				conditionalAssign: true,
 				returnAssign: true,
-				nestedBinaryExpressions: true,
+				nestedBinaryExpressions: false,
 				ignoreJSX: 'multi-line',
 				enforceForArrowConditionals: true,
 				enforceForSequenceExpressions: true,
