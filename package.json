@@ -3,10 +3,10 @@
 	"version": "0.0.0",
 	"license": "ISC",
 	"peerDependencies": {
-		"@typescript-eslint/eslint-plugin": "4.12.x",
-		"@typescript-eslint/parser": "4.12.x",
-		"eslint": "7.17.x",
-		"eslint-import-resolver-typescript": "2.3.x",
+		"@typescript-eslint/eslint-plugin": "4.18.x",
+		"@typescript-eslint/parser": "4.18.x",
+		"eslint": "7.22.x",
+		"eslint-import-resolver-typescript": "2.4.x",
 		"eslint-plugin-import": "2.22.x",
 		"eslint-plugin-node": "11.1.x",
 		"eslint-plugin-react": "7.22.x"
