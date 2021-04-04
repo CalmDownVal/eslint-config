@@ -275,7 +275,8 @@ const rules = {
 
 	// enforce that class methods utilize `this`
 	// https://eslint.org/docs/rules/class-methods-use-this
-	'class-methods-use-this': WARN,
+	// NOTE: flags method overrides and is overall quite annoying
+	'class-methods-use-this': OFF,
 
 	// enforce a maximum cyclomatic complexity allowed in a program
 	// https://eslint.org/docs/rules/complexity
@@ -482,10 +483,8 @@ const rules = {
 
 	// disallow magic numbers
 	// https://eslint.org/docs/rules/no-magic-numbers
-	'no-magic-numbers': [
-		WARN,
-		{ ignore: [ 0, 1, 2 ] }
-	],
+	// NOTE: flags calculations like `DAY = 24 * 60 * 60 * 1000`
+	'no-magic-numbers': OFF,
 
 	// disallow multiple spaces
 	// https://eslint.org/docs/rules/no-multi-spaces
@@ -790,8 +789,8 @@ const rules = {
 		'always',
 		{
 			singleValue: true,
-			objectsInArrays: false,
-			arraysInArrays: false
+			objectsInArrays: true,
+			arraysInArrays: true
 		}
 	],
 

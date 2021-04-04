@@ -760,17 +760,7 @@ const rules = {
 	'no-extra-parens': OFF,
 	'@typescript-eslint/no-extra-parens': [
 		WARN,
-		'all',
-		{
-			conditionalAssign: true,
-			returnAssign: true,
-			nestedBinaryExpressions: false,
-			ignoreJSX: 'multi-line',
-			enforceForArrowConditionals: true,
-			enforceForSequenceExpressions: true,
-			enforceForNewInMemberExpressions: true,
-			enforceForFunctionPrototypeMethods: false
-		}
+		'functions'
 	],
 
 	// disallow unnecessary semicolons
@@ -803,16 +793,7 @@ const rules = {
 
 	// disallow magic numbers
 	// https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/no-magic-numbers.md
-	'no-magic-numbers': OFF,
-	'@typescript-eslint/no-magic-numbers': [
-		WARN,
-		{
-			ignore: [ -1, 0, 0.5, 1, 2 ],
-			ignoreEnums: true,
-			ignoreNumericLiteralTypes: false,
-			ignoreReadonlyClassProperties: true
-		}
-	],
+	'@typescript-eslint/no-magic-numbers': OFF,
 
 	// disallow variable redeclaration
 	// https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/no-redeclare.md
@@ -938,7 +919,11 @@ const rules = {
 	// this rule is aimed at ensuring there are spaces around infix operators
 	// https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/space-infix-ops.md
 	'space-infix-ops': OFF,
-	'@typescript-eslint/space-infix-ops': WARN
+	'@typescript-eslint/space-infix-ops': WARN,
+
+	// NOTE: there is currently no TS counterpart of this rule and it flags false
+	// positives on interfaces, enums etc.
+	'lines-around-comment': OFF
 };
 
 module.exports = {
