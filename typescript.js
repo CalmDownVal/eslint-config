@@ -945,7 +945,7 @@ module.exports = {
 					'@typescript-eslint/parser': [ '.ts', '.tsx' ]
 				},
 				'import/resolver': {
-					typescript: {
+					'@calmdownval/eslint-import-resolver-typescript': {
 						alwaysTryTypes: true,
 
 						// extending configs may need to reconfigure this path/glob

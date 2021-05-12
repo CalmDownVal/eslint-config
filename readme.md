@@ -69,7 +69,7 @@ Required dependencies:
 
 - `@typescript-eslint/eslint-plugin`
 - `@typescript-eslint/parser`
-- `eslint-import-resolver-typescript`
+- `@calmdownval/eslint-import-resolver-typescript`
 
 Monorepos and other non-trivial projects may need to reconfigure:
 
@@ -84,12 +84,12 @@ sub-projects in the `packages` directory might use the following configuration:
 ```json
 {
   "parserOptions": {
-    "project": "./packages/**/tsconfig.json"
+    "project": "./packages/*/tsconfig.json"
   },
   "settings": {
     "import/resolver": {
-      "typescript": {
-        "project": "./packages/**/tsconfig.json"
+      "@calmdownval/eslint-import-resolver-typescript": {
+        "project": "./packages/*/tsconfig.json"
       }
     }
   }
