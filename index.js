@@ -434,7 +434,7 @@ const rules = {
 		{
 			boolean: true,
 			number: true,
-			string: true,
+			string: false,
 			allow: []
 		}
 	],
@@ -908,11 +908,7 @@ const rules = {
 
 	// require or disallow named `function` expressions
 	// https://eslint.org/docs/rules/func-names
-	'func-names': [
-		WARN,
-		'as-needed',
-		{ generators: 'as-needed' }
-	],
+	'func-names': OFF,
 
 	// enforce the consistent use of either `function` declarations or expressions
 	// https://eslint.org/docs/rules/func-style
@@ -1668,7 +1664,7 @@ const rules = {
 		WARN,
 		{
 			VariableDeclarator: {
-				array: true,
+				array: false, // array destructuring uses iterators and is MUCH slower than direct access
 				object: true
 			},
 			AssignmentExpression: {
@@ -1685,15 +1681,18 @@ const rules = {
 
 	// require rest parameters instead of `arguments`
 	// https://eslint.org/docs/rules/prefer-rest-params
-	'prefer-rest-params': WARN,
+	// NOTE: `arguments` are often used for performance reasons
+	'prefer-rest-params': OFF,
 
 	// require spread operators instead of `.apply()`
 	// https://eslint.org/docs/rules/prefer-spread
-	'prefer-spread': WARN,
+	// NOTE: `fn.apply()` is still very useful with `arguments`
+	'prefer-spread': OFF,
 
 	// require template literals instead of string concatenation
 	// https://eslint.org/docs/rules/prefer-template
-	'prefer-template': WARN,
+	// NOTE: disabled mainly to allow fast stringify using '' + n
+	'prefer-template': OFF,
 
 	// require generator functions to contain `yield`
 	// https://eslint.org/docs/rules/require-yield
