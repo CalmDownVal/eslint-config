@@ -3,13 +3,6 @@ const WARN = 'warn';
 const ERROR = 'error';
 
 const rules = {
-	// ███████╗███████╗██╗     ██╗███╗   ██╗████████╗     ██████╗ ██████╗ ██████╗ ███████╗
-	// ██╔════╝██╔════╝██║     ██║████╗  ██║╚══██╔══╝    ██╔════╝██╔═══██╗██╔══██╗██╔════╝
-	// █████╗  ███████╗██║     ██║██╔██╗ ██║   ██║       ██║     ██║   ██║██████╔╝█████╗
-	// ██╔══╝  ╚════██║██║     ██║██║╚██╗██║   ██║       ██║     ██║   ██║██╔══██╗██╔══╝
-	// ███████╗███████║███████╗██║██║ ╚████║   ██║       ╚██████╗╚██████╔╝██║  ██║███████╗
-	// ╚══════╝╚══════╝╚══════╝╚═╝╚═╝  ╚═══╝   ╚═╝        ╚═════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝
-
 	// enforce 'for' loop update clause moving the counter in the right direction
 	// https://eslint.org/docs/rules/for-direction
 	'for-direction': WARN,
@@ -160,6 +153,10 @@ const rules = {
 	// https://eslint.org/docs/rules/no-misleading-character-class
 	'no-misleading-character-class': WARN,
 
+	// Disallow `new` operators with global non-constructor functions
+	// https://eslint.org/docs/latest/rules/no-new-native-nonconstructor
+	'no-new-native-nonconstructor': ERROR,
+
 	// disallow calling global object properties as functions
 	// https://eslint.org/docs/rules/no-obj-calls
 	'no-obj-calls': WARN,
@@ -222,6 +219,10 @@ const rules = {
 	// disallow use of optional chaining in contexts where the `undefined` value is not allowed
 	// https://eslint.org/docs/rules/no-unsafe-optional-chaining
 	'no-unsafe-optional-chaining': WARN,
+
+	// Disallow unused private class members
+	// https://eslint.org/docs/latest/rules/no-unused-private-class-members
+	'no-unused-private-class-members': WARN,
 
 	// disallow useless backreferences in regular expressions
 	// https://eslint.org/docs/rules/no-useless-backreference
@@ -382,6 +383,10 @@ const rules = {
 			allow: [ 'arrowFunctions' ]
 		}
 	],
+
+	// Disallow empty static blocks
+	// https://eslint.org/docs/latest/rules/no-empty-static-block
+	'no-empty-static-block': WARN,
 
 	// disallow empty destructuring patterns
 	// https://eslint.org/docs/rules/no-empty-pattern
@@ -702,6 +707,14 @@ const rules = {
 	// require or disallow initialization in variable declarations
 	// https://eslint.org/docs/rules/init-declarations
 	'init-declarations': OFF,
+
+	// Require or disallow logical assignment operator shorthand
+	// https://eslint.org/docs/latest/rules/logical-assignment-operators
+	'logical-assignment-operators': [
+		WARN,
+		'always',
+		{ enforceForIfStatements: true }
+	],
 
 	// disallow deleting variables
 	// https://eslint.org/docs/rules/no-delete-var
@@ -1576,6 +1589,10 @@ const rules = {
 	// https://eslint.org/docs/rules/no-const-assign
 	'no-const-assign': ERROR,
 
+	// Disallow expressions where the operation doesn't affect the value
+	// https://eslint.org/docs/latest/rules/no-constant-binary-expression
+	'no-constant-binary-expression': WARN,
+
 	// disallow duplicate class members
 	// https://eslint.org/docs/rules/no-dupe-class-members
 	'no-dupe-class-members': ERROR,
@@ -1679,6 +1696,10 @@ const rules = {
 	// https://eslint.org/docs/rules/prefer-numeric-literals
 	'prefer-numeric-literals': WARN,
 
+	// Disallow use of `Object.prototype.hasOwnProperty.call()` and prefer use of `Object.hasOwn()`
+	// https://eslint.org/docs/latest/rules/prefer-object-has-own
+	'prefer-object-has-own': WARN,
+
 	// require rest parameters instead of `arguments`
 	// https://eslint.org/docs/rules/prefer-rest-params
 	// NOTE: `arguments` are often used for performance reasons
@@ -1729,232 +1750,7 @@ const rules = {
 			before: false,
 			after: true
 		}
-	],
-
-	// ██╗███╗   ███╗██████╗  ██████╗ ██████╗ ████████╗███████╗
-	// ██║████╗ ████║██╔══██╗██╔═══██╗██╔══██╗╚══██╔══╝██╔════╝
-	// ██║██╔████╔██║██████╔╝██║   ██║██████╔╝   ██║   ███████╗
-	// ██║██║╚██╔╝██║██╔═══╝ ██║   ██║██╔══██╗   ██║   ╚════██║
-	// ██║██║ ╚═╝ ██║██║     ╚██████╔╝██║  ██║   ██║   ███████║
-	// ╚═╝╚═╝     ╚═╝╚═╝      ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚══════╝
-
-	// ensure imports point to a file/module that can be resolved
-	// https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-unresolved.md
-	'import/no-unresolved': [
-		ERROR,
-		{
-			commonjs: false,
-			amd: false,
-			caseSensitive: true
-		}
-	],
-
-	// ensure named imports correspond to a named export in the remote file
-	// https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/named.md
-	'import/named': ERROR,
-
-	// ensure a default export is present, given a default import
-	// https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/default.md
-	'import/default': ERROR,
-
-	// ensure imported namespaces contain dereferenced properties as they are dereferenced
-	// https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/namespace.md
-	'import/namespace': [
-		ERROR,
-		{ allowComputed: true }
-	],
-
-	// restrict which files can be imported in a given folder
-	// https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-restricted-paths.md
-	'import/no-restricted-paths': OFF,
-
-	// forbid import of modules using absolute paths
-	// https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-absolute-path.md
-	'import/no-absolute-path': [
-		WARN,
-		{
-			esmodule: true,
-			commonjs: false,
-			amd: false
-		}
-	],
-
-	// forbid require() calls with expressions
-	// https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-dynamic-require.md
-	'import/no-dynamic-require': OFF,
-
-	// prevent importing the submodules of other modules
-	// https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-internal-modules.md
-	'import/no-internal-modules': OFF,
-
-	// forbid webpack loader syntax in imports
-	// https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-webpack-loader-syntax.md
-	'import/no-webpack-loader-syntax': OFF,
-
-	// forbid a module from importing itself
-	// https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-self-import.md
-	'import/no-self-import': ERROR,
-
-	// forbid a module from importing a module with a dependency path back to itself
-	// https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-cycle.md
-	'import/no-cycle': [
-		ERROR,
-		{
-			maxDepth: 16,
-			ignoreExternal: true
-		}
-	],
-
-	// prevent unnecessary path segments in import and require statements
-	// https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-useless-path-segments.md
-	'import/no-useless-path-segments': [
-		WARN,
-		{
-			noUselessIndex: true,
-			commonjs: false
-		}
-	],
-
-	// forbid importing modules from parent directories
-	// https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-relative-parent-imports.md
-	// NOTE: false positives on paths with `~/*`
-	'import/no-relative-parent-imports': OFF,
-
-	// report any invalid exports, i.e. re-export of the same name
-	// https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/export.md
-	'import/export': ERROR,
-
-	// report use of exported name as identifier of default export
-	// https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-named-as-default.md
-	'import/no-named-as-default': WARN,
-
-	// report use of exported name as property of default export
-	// https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-named-as-default-member.md
-	'import/no-named-as-default-member': WARN,
-
-	// report imported names marked with @deprecated documentation tag
-	// https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-deprecated.md
-	'import/no-deprecated': WARN,
-
-	// forbid the use of extraneous packages
-	// https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-extraneous-dependencies.md
-	'import/no-extraneous-dependencies': OFF,
-
-	// forbid the use of mutable exports with var or let
-	// https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-mutable-exports.md
-	'import/no-mutable-exports': ERROR,
-
-	// report modules without exports, or exports without matching import in another module
-	// https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-unused-modules.md
-	'import/no-unused-modules': OFF,
-
-	// report potentially ambiguous parse goal (script vs. module)
-	// https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/unambiguous.md
-	'import/unambiguous': WARN,
-
-	// report CommonJS require calls and `module.exports` or `exports.*`
-	// https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-commonjs.md
-	'import/no-commonjs': WARN,
-
-	// report AMD require and define calls
-	// https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-amd.md
-	'import/no-amd': WARN,
-
-	// no Node.js builtin modules
-	// https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-nodejs-modules.md
-	'import/no-nodejs-modules': OFF,
-
-	// ensure all imports appear before other statements
-	// https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/first.md
-	// NOTE: overridden by 'import/order'
-	'import/first': OFF,
-
-	// ensure all exports appear after other statements
-	// https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/exports-last.md
-	'import/exports-last': OFF,
-
-	// report repeated import of the same module in multiple places
-	// https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-duplicates.md
-	'import/no-duplicates': [
-		WARN,
-		{ considerQueryString: true }
-	],
-
-	// forbid namespace (a.k.a. "wildcard" *) imports
-	// https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-namespace.md
-	'import/no-namespace': OFF,
-
-	// ensure consistent use of file extension within the import path
-	// https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/extensions.md
-	'import/extensions': OFF,
-
-	// enforce a convention in module import order
-	// https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/order.md
-	'import/order': [
-		WARN,
-		{
-			groups: [
-				'builtin',
-				'external',
-				'internal',
-				[ 'sibling', 'parent', 'index' ]
-			],
-			pathGroups: [
-				{
-					pattern: '~/**',
-					group: 'internal'
-				}
-			],
-			'newlines-between': 'always',
-			alphabetize: {
-				order: 'asc',
-				caseInsensitive: true
-			}
-		}
-	],
-
-	// enforce a newline after import statements
-	// https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/newline-after-import.md
-	'import/newline-after-import': [
-		WARN,
-		{ count: 1 }
-	],
-
-	// prefer a default export if module exports a single name
-	// https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/prefer-default-export.md
-	'import/prefer-default-export': OFF,
-
-	// limit the maximum number of dependencies a module can have
-	// https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/max-dependencies.md
-	'import/max-dependencies': OFF,
-
-	// forbid unassigned imports
-	// https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-unassigned-import.md
-	'import/no-unassigned-import': OFF,
-
-	// forbid named default exports
-	// https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-named-default.md
-	'import/no-named-default': WARN,
-
-	// forbid default exports
-	// https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-default-export.md
-	'import/no-default-export': WARN,
-
-	// forbid named exports
-	// https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-named-export.md
-	'import/no-named-export': OFF,
-
-	// forbid anonymous values as default exports
-	// https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-anonymous-default-export.md
-	'import/no-anonymous-default-export': OFF,
-
-	// prefer named exports to be grouped together in a single export declaration
-	// https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/group-exports.md
-	'import/group-exports': OFF,
-
-	// enforce a leading comment with the webpackChunkName for dynamic imports
-	// https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/dynamic-import-chunkname.md
-	'import/dynamic-import-chunkname': OFF
+	]
 };
 
 module.exports = {
@@ -1965,8 +1761,5 @@ module.exports = {
 			jsx: true
 		}
 	},
-	plugins: [
-		'eslint-plugin-import'
-	],
 	rules
 };
