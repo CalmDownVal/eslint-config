@@ -174,11 +174,15 @@ const rules = {
 					group: 'internal'
 				}
 			],
+			distinctGroup : false,
+			pathGroupsExcludedImportTypes: [],
 			'newlines-between': 'always',
 			alphabetize: {
 				order: 'asc',
+				orderImportKind: 'desc',
 				caseInsensitive: true
-			}
+			},
+			warnOnUnassignedImports: true
 		}
 	],
 
@@ -227,7 +231,7 @@ const rules = {
 
 	// Enforce or ban the use of inline type-only markers for named imports.
 	// https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/consistent-type-specifier-style.md
-	'import/consistent-type-specifier-style': [ WARN, 'prefer-top-level' ],
+	'import/consistent-type-specifier-style': OFF,
 
 	// Forbid import statements with CommonJS module.exports.
 	// https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/no-import-module-exports.md

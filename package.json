@@ -1,13 +1,13 @@
 {
 	"name": "@calmdownval/eslint-config",
-	"version": "2.0.0",
+	"version": "2.0.1",
 	"license": "ISC",
 	"peerDependencies": {
-		"@calmdownval/eslint-import-resolver-typescript": "1.1.2",
+		"@calmdownval/eslint-import-resolver-typescript": "1.2.0",
 		"@typescript-eslint/eslint-plugin": "6.2.0",
 		"@typescript-eslint/parser": "6.2.0",
-		"eslint": "8.45.0",
-		"eslint-plugin-import": "2.27.5"
+		"eslint": "8.46.0",
+		"eslint-plugin-import": "2.28.0"
 	},
 	"repository": {
 		"type": "git",

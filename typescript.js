@@ -3,9 +3,8 @@ const WARN = 'warn';
 const ERROR = 'error';
 
 const rules = {
-	// NOTE: there is currently no TS counterpart of this rule and it flags false
-	// positives on interfaces, enums etc.
-	'lines-around-comment': OFF,
+	// TS handles this instead
+	'consistent-return': OFF,
 
 	// turn off or reconfigure core rules made redundant by the use of TypeScript
 	'array-callback-return': OFF,
@@ -479,6 +478,16 @@ const rules = {
 			classes: 'always'
 		}
 	],
+
+	// disallow magic numbers
+	// https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-magic-numbers.md
+	'no-magic-numbers': OFF,
+	'@typescript-eslint/no-magic-numbers': OFF,
+
+	// Disallow specified modules when loaded by import
+	// https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-restricted-imports.md
+	'no-restricted-imports': OFF,
+	'@typescript-eslint/no-restricted-imports': OFF,
 
 	// require that member overloads be consecutive
 	// https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/adjacent-overload-signatures.md
@@ -970,10 +979,6 @@ const rules = {
 	// NOTE: flags overloads even when they have nothing in common and have their own JSDocs
 	'@typescript-eslint/unified-signatures': OFF,
 
-	// disallow magic numbers
-	// https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-magic-numbers.md
-	'@typescript-eslint/no-magic-numbers': OFF,
-
 	// Enforce specifying generic type arguments on type annotation or constructor name of a constructor call
 	// https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/consistent-generic-constructors.md
 	'@typescript-eslint/consistent-generic-constructors': [ WARN, 'constructor' ],
@@ -1018,10 +1023,6 @@ const rules = {
 	// Disallow members of unions and intersections that do nothing or override type information
 	// https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-redundant-type-constituents.md
 	'@typescript-eslint/no-redundant-type-constituents': WARN,
-
-	// Disallow specified modules when loaded by import
-	// https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-restricted-imports.md
-	'@typescript-eslint/no-restricted-imports': OFF,
 
 	// Disallow calling a function with a value with type any
 	// https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-unsafe-argument.md

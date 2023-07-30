@@ -66,11 +66,21 @@ const validateSeverity = compileSchema({
 	]
 });
 
-CONFIGS.forEach(({ name: configName, configuredRules }) => {
+CONFIGS.forEach(({ name: configName, configuredRules, prefix }) => {
 	for (const ruleName in configuredRules) {
 		if (Object.hasOwn(AVAILABLE_RULES, ruleName)) {
 			HAS_SEEN_CONFIG_FOR[ruleName] = true;
 
+			// check for possibler built-in rule clash
+			if (prefix && ruleName.startsWith(prefix)) {
+				const builtInRuleName = ruleName.slice(prefix.length);
+				if (Object.hasOwn(AVAILABLE_RULES, builtInRuleName) && !Object.hasOwn(configuredRules, builtInRuleName)) {
+					console.warn(`Rule '${ruleName}' seems to override built-in '${builtInRuleName}', but it has not been re-configured.`);
+					console.warn();
+				}
+			}
+
+			// normalize config
 			let config = configuredRules[ruleName];
 			if (!Array.isArray(config)) {
 				config = [ config ];
@@ -81,7 +91,7 @@ CONFIGS.forEach(({ name: configName, configuredRules }) => {
 			if (!validateSeverity(severity)) {
 				console.error(`Invalid severity for rule '${ruleName}' in '${configName}':`);
 				console.error(validateSeverity.errors);
-				console.error('\n');
+				console.error();
 				continue;
 			}
 
@@ -95,7 +105,7 @@ CONFIGS.forEach(({ name: configName, configuredRules }) => {
 					if (schema.length < options.length) {
 						console.error(`Invalid options for '${ruleName}' in '${configName}':`);
 						console.error(`The rule only expects ${schema.length} options but ${options.length} were configured.`);
-						console.error('\n');
+						console.error();
 					}
 					else if (schema.length > 0) {
 						const validate = compileSchema({
@@ -106,7 +116,7 @@ CONFIGS.forEach(({ name: configName, configuredRules }) => {
 						if (!validate(options)) {
 							console.error(`Invalid options for '${ruleName}' in '${configName}':`);
 							console.error(validate.errors);
-							console.error('\n');
+							console.error();
 						}
 					}
 				}
@@ -115,7 +125,7 @@ CONFIGS.forEach(({ name: configName, configuredRules }) => {
 					if (!validate(options)) {
 						console.error(`Invalid options for '${ruleName}' in '${configName}':`);
 						console.error(validate.errors);
-						console.error('\n');
+						console.error();
 					}
 				}
 			}
