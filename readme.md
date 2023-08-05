@@ -74,8 +74,11 @@ Import plugin to resolve TS paths correctly.
   "root": true,
   "extends": [
     "@calmdownval/eslint-config",
+    "@calmdownval/eslint-config/typescript",
+
+    // additionally, if using eslint-plugin-import:
     "@calmdownval/eslint-config/import",
-    "@calmdownval/eslint-config/typescript"
+    "@calmdownval/eslint-config/typescript-import"
   ]
 }
 ```
@@ -85,7 +88,7 @@ Required dependencies:
 - `@calmdownval/eslint-import-resolver-typescript`
 - `@typescript-eslint/eslint-plugin`
 - `@typescript-eslint/parser`
-- `eslint-plugin-import`
+- `eslint-plugin-import` (optional)
 
 Monorepos and other non-trivial projects may need to reconfigure:
 
@@ -100,6 +103,8 @@ following configuration:
   "parserOptions": {
     "project": "./packages/*/tsconfig.json"
   },
+
+  // additionally, if using eslint-plugin-import:
   "settings": {
     "import/resolver": {
       "@calmdownval/eslint-import-resolver-typescript": {

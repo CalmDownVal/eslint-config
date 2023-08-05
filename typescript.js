@@ -1,3 +1,6 @@
+// this set of rules configures all rules of the ESLint TypeScript plugin.
+// ---
+
 const OFF = 'off';
 const WARN = 'warn';
 const ERROR = 'error';
@@ -603,7 +606,7 @@ const rules = {
 		WARN,
 		{
 			disallowTypeAnnotations: false,
-			fixStyle: 'separate-type-imports',
+			fixStyle: 'inline-type-imports',
 			prefer: 'type-imports'
 		}
 	],
@@ -1056,7 +1059,7 @@ const rules = {
 module.exports = {
 	overrides: [
 		{
-			files: [ '*.ts', '*.tsx' ],
+			files: [ '*.ts', '*.tsx', '*.mts', '*.cts' ],
 			parser: '@typescript-eslint/parser',
 			parserOptions: {
 				// extending configs may need to reconfigure this path/glob
@@ -1066,21 +1069,7 @@ module.exports = {
 			plugins: [
 				'@typescript-eslint'
 			],
-			rules,
-			settings: {
-				'import/parsers': {
-					'@typescript-eslint/parser': [ '.ts', '.tsx' ]
-				},
-				'import/resolver': {
-					'@calmdownval/eslint-import-resolver-typescript': {
-						alwaysTryTypes: true,
-
-						// extending configs may need to reconfigure this path/glob
-						// https://github.com/alexgorbatchev/eslint-import-resolver-typescript#configuration
-						project: './tsconfig.json'
-					}
-				}
-			}
+			rules
 		}
 	]
 };

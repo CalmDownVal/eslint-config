@@ -1,3 +1,6 @@
+// this set of rules configures all rules of the ESLint Import plugin.
+// ---
+
 const OFF = 'off';
 const WARN = 'warn';
 const ERROR = 'error';
@@ -171,10 +174,11 @@ const rules = {
 			pathGroups: [
 				{
 					pattern: '~/**',
-					group: 'internal'
+					group: 'internal',
+					position: 'after'
 				}
 			],
-			distinctGroup : false,
+			distinctGroup: true,
 			pathGroupsExcludedImportTypes: [],
 			'newlines-between': 'always',
 			alphabetize: {

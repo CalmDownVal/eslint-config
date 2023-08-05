@@ -1,3 +1,6 @@
+// this set of rules configures all core (built-in) rules of ESLint
+// ---
+
 const OFF = 'off';
 const WARN = 'warn';
 const ERROR = 'error';
