@@ -28,7 +28,12 @@ const rules = {
 module.exports = {
 	overrides: [
 		{
-			files: [ '*.ts', '*.tsx' ],
+			files: [
+				'*.ts',
+				'*.tsx',
+				'*.mts',
+				'*.cts'
+			],
 			plugins: [
 				'eslint-plugin-import'
 			],
@@ -36,15 +41,6 @@ module.exports = {
 			settings: {
 				'import/parsers': {
 					'@typescript-eslint/parser': [ '.ts', '.tsx', '.mts', '.cts' ]
-				},
-				'import/resolver': {
-					'@calmdownval/eslint-import-resolver-typescript': {
-						alwaysTryTypes: true,
-
-						// extending configs may need to reconfigure this path/glob
-						// https://github.com/alexgorbatchev/eslint-import-resolver-typescript#configuration
-						project: './tsconfig.json'
-					}
 				}
 			}
 		}

@@ -59,6 +59,7 @@ Configuration for the import plugin.
 
 Required dependencies:
 
+- `@calmdownval/eslint-import-resolver`
 - `eslint-plugin-import`
 
 ### TypeScript Configuration
@@ -85,15 +86,15 @@ Import plugin to resolve TS paths correctly.
 
 Required dependencies:
 
-- `@calmdownval/eslint-import-resolver-typescript`
+- `@calmdownval/eslint-import-resolver`
 - `@typescript-eslint/eslint-plugin`
 - `@typescript-eslint/parser`
 - `eslint-plugin-import` (optional)
 
 Monorepos and other non-trivial projects may need to reconfigure:
 
-- the `project` parser option [as documented here](https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/parser#parseroptionsproject).
-- the `project` resolver option [as documented here](https://github.com/alexgorbatchev/eslint-import-resolver-typescript#configuration).
+- the `project` parser option
+- the `project` resolver setting
 
 A monorepo with workspaces under the `packages` directory might use the
 following configuration:
@@ -107,7 +108,7 @@ following configuration:
   // additionally, if using eslint-plugin-import:
   "settings": {
     "import/resolver": {
-      "@calmdownval/eslint-import-resolver-typescript": {
+      "@calmdownval/eslint-import-resolver": {
         "project": "./packages/*/tsconfig.json"
       }
     }

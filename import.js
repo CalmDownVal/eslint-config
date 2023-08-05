@@ -250,5 +250,13 @@ module.exports = {
 	plugins: [
 		'eslint-plugin-import'
 	],
-	rules
+	rules,
+	settings: {
+		'import/resolver': {
+			'@calmdownval/eslint-import-resolver': {
+				alwaysTryTypes: true,
+				project: './tsconfig.json'
+			}
+		}
+	}
 };

@@ -1059,11 +1059,14 @@ const rules = {
 module.exports = {
 	overrides: [
 		{
-			files: [ '*.ts', '*.tsx', '*.mts', '*.cts' ],
+			files: [
+				'*.ts',
+				'*.tsx',
+				'*.mts',
+				'*.cts'
+			],
 			parser: '@typescript-eslint/parser',
 			parserOptions: {
-				// extending configs may need to reconfigure this path/glob
-				// https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/parser#parseroptionsproject
 				project: './tsconfig.json'
 			},
 			plugins: [
