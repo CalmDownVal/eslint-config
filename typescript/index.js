@@ -22,7 +22,7 @@ const rules = {
 	'camelcase': OFF,
 	'@typescript-eslint/naming-convention': [
 		WARN,
-		// force camelCase for all values
+		// force camelCase by default
 		{
 			selector: [ 'default' ],
 			format: [ 'camelCase' ],
@@ -30,36 +30,38 @@ const rules = {
 			trailingUnderscore: 'forbid'
 		},
 
-		// force PascalCase for all types
+		// types: force PascalCase
 		{
 			selector: [ 'typeLike' ],
 			format: [ 'PascalCase' ]
 		},
 
-		// override to allow _ and __ prefixes for values
+		// variables: allow underscore prefixes
 		{
 			selector: [ 'variableLike', 'memberLike' ],
 			format: [ 'camelCase' ],
 			leadingUnderscore: 'allowSingleOrDouble'
 		},
 
-		// override for global and static member constants
+		// top-level constants: relax naming but forbid underscore prefixes
 		{
 			selector: [ 'variableLike' ],
 			modifiers: [ 'const', 'global' ],
 			format: [ 'camelCase', 'PascalCase', 'UPPER_CASE' ],
 			leadingUnderscore: 'forbid'
 		},
+
+		// object and class properties: relax naming and allow underscore prefixes
 		{
-			selector: [ 'memberLike' ],
-			modifiers: [ 'static' ],
-			format: [ 'camelCase', 'PascalCase', 'UPPER_CASE' ]
+			selector: [ 'objectLiteralProperty', 'classProperty' ],
+			format: [ 'camelCase', 'PascalCase', 'UPPER_CASE' ],
+			leadingUnderscore: 'allowSingleOrDouble'
 		},
 
-		// force PascalCase for enums
+		// enum members: relax naming but forbid underscore prefixes
 		{
 			selector: [ 'enumMember' ],
-			format: [ 'PascalCase' ],
+			format: [ 'PascalCase', 'UPPER_CASE' ],
 			leadingUnderscore: 'forbid'
 		},
 
