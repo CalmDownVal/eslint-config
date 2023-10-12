@@ -8,6 +8,7 @@ const ERROR = 'error';
 const rules = {
 	// TS handles this instead
 	'consistent-return': OFF,
+	'no-redeclare': OFF,
 
 	// turn off or reconfigure core rules made redundant by the use of TypeScript
 	'array-callback-return': OFF,
@@ -76,7 +77,9 @@ const rules = {
 	'@typescript-eslint/brace-style': [
 		WARN,
 		'stroustrup',
-		{ allowSingleLine: false }
+		{
+			allowSingleLine: false
+		}
 	],
 
 	// require or disallow trailing comma
@@ -246,7 +249,9 @@ const rules = {
 	'no-invalid-this': OFF,
 	'@typescript-eslint/no-invalid-this': [
 		WARN,
-		{ capIsConstructor: true }
+		{
+			capIsConstructor: true
+		}
 	],
 
 	// disallow function declarations that contain unsafe references inside loop statements
@@ -264,7 +269,9 @@ const rules = {
 	'no-redeclare': OFF,
 	'@typescript-eslint/no-redeclare': [
 		ERROR,
-		{ ignoreDeclarationMerge: true }
+		{
+			ignoreDeclarationMerge: true
+		}
 	],
 
 	// disallow variable declarations from shadowing variables declared in the outer scope
@@ -284,7 +291,13 @@ const rules = {
 	// disallow throwing literals as exceptions
 	// https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-throw-literal.md
 	'no-throw-literal': OFF,
-	'@typescript-eslint/no-throw-literal': WARN,
+	'@typescript-eslint/no-throw-literal': [
+		WARN,
+		{
+			allowThrowingAny: false,
+			allowThrowingUnknown: false
+		}
+	],
 
 	// disallow unused expressions
 	// https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-unused-expressions.md
@@ -364,7 +377,9 @@ const rules = {
 	'@typescript-eslint/semi': [
 		WARN,
 		'always',
-		{ omitLastInOneLineBlock: false }
+		{
+			omitLastInOneLineBlock: false
+		}
 	],
 
 	// enforces consistent spacing before function parenthesis
@@ -382,7 +397,12 @@ const rules = {
 	// this rule is aimed at ensuring there are spaces around infix operators
 	// https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/space-infix-ops.md
 	'space-infix-ops': OFF,
-	'@typescript-eslint/space-infix-ops': WARN,
+	'@typescript-eslint/space-infix-ops': [
+		WARN,
+		{
+			int32Hint: true
+		}
+	],
 
 	// Disallow or enforce spaces inside of blocks after opening block and before closing block
 	// https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/block-spacing.md
@@ -695,7 +715,9 @@ const rules = {
 	// https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-empty-interface.md
 	'@typescript-eslint/no-empty-interface': [
 		WARN,
-		{ allowSingleExtends: true }
+		{
+			allowSingleExtends: true
+		}
 	],
 
 	// disallow usage of the any type
@@ -806,7 +828,9 @@ const rules = {
 	// https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-unnecessary-condition.md
 	'@typescript-eslint/no-unnecessary-condition': [
 		WARN,
-		{ allowConstantLoopConditions: true }
+		{
+			allowConstantLoopConditions: true
+		}
 	],
 
 	// warns when a namespace qualifier is unnecessary
@@ -819,7 +843,12 @@ const rules = {
 
 	// warns if a type assertion does not change the type of an expression
 	// https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-unnecessary-type-assertion.md
-	'@typescript-eslint/no-unnecessary-type-assertion': WARN,
+	'@typescript-eslint/no-unnecessary-type-assertion': [
+		WARN,
+		{
+			typesToIgnore: []
+		}
+	],
 
 	// disallows unnecessary constraints on generic types
 	// https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-unnecessary-type-constraint.md
@@ -871,7 +900,12 @@ const rules = {
 
 	// require that all enum members be literal values to prevent unintended enum member name shadow issues
 	// https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/prefer-literal-enum-member.md
-	'@typescript-eslint/prefer-literal-enum-member': WARN,
+	'@typescript-eslint/prefer-literal-enum-member': [
+		WARN,
+		{
+			allowBitwiseExpressions: false
+		}
+	],
 
 	// require the use of the namespace keyword instead of the module keyword to declare custom TypeScript modules
 	// https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/prefer-namespace-keyword.md
@@ -889,13 +923,28 @@ const rules = {
 
 	// prefer using concise optional chain expressions instead of chained logical ands
 	// https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/prefer-optional-chain.md
-	'@typescript-eslint/prefer-optional-chain': WARN,
+	'@typescript-eslint/prefer-optional-chain': [
+		WARN,
+		{
+			checkAny: true,
+			checkUnknown: true,
+			checkString: true,
+			checkNumber: true,
+			checkBoolean: true,
+			checkBigInt: true,
+			requireNullish: false,
+			// Note: nice naming guys
+			allowPotentiallyUnsafeFixesThatModifyTheReturnTypeIKnowWhatImDoing: false
+		}
+	],
 
 	// requires that private members are marked as readonly if they're never modified outside of the constructor
 	// https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/prefer-readonly.md
 	'@typescript-eslint/prefer-readonly': [
 		WARN,
-		{ onlyInlineLambdas: false }
+		{
+			onlyInlineLambdas: false
+		}
 	],
 
 	// requires that function parameters are typed as readonly to prevent accidental mutation of inputs
@@ -946,17 +995,31 @@ const rules = {
 
 	// sets preference level for triple slash directives versus ES6-style import declarations
 	// https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/triple-slash-reference.md
-	'@typescript-eslint/triple-slash-reference': WARN,
+	'@typescript-eslint/triple-slash-reference': [
+		WARN,
+		{
+			lib: 'never',
+			path: 'never',
+			types: 'prefer-import'
+		}
+	],
 
 	// require consistent spacing around type annotations
 	// https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/type-annotation-spacing.md
 	'@typescript-eslint/type-annotation-spacing': [
 		WARN,
 		{
-			before: false,
 			after: true,
+			before: false,
 			overrides: {
-				arrow: { before: true }
+				arrow: {
+					after: true,
+					before: true
+				},
+				colon: {
+					after: true,
+					before: false
+				}
 			}
 		}
 	],
@@ -969,7 +1032,9 @@ const rules = {
 	// https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/unbound-method.md
 	'@typescript-eslint/unbound-method': [
 		WARN,
-		{ ignoreStatic: true }
+		{
+			ignoreStatic: true
+		}
 	],
 
 	// warns for any two overloads that could be unified into one by using a union or an optional/rest parameter
@@ -983,7 +1048,12 @@ const rules = {
 
 	// Enforce consistent usage of type exports
 	// https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/consistent-type-exports.md
-	'@typescript-eslint/consistent-type-exports': WARN,
+	'@typescript-eslint/consistent-type-exports': [
+		WARN,
+		{
+			fixMixedExportsWithInlineTypeSpecifier: true
+		}
+	],
 
 	// Disallow duplicate enum member values
 	// https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-duplicate-enum-values.md
@@ -1007,7 +1077,9 @@ const rules = {
 	// https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-meaningless-void-operator.md
 	'@typescript-eslint/no-meaningless-void-operator': [
 		WARN,
-		{ checkNever: true }
+		{
+			checkNever: true
+		}
 	],
 
 	// Disallow enums from having both number and string members

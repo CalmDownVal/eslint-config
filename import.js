@@ -19,7 +19,12 @@ const rules = {
 
 	// ensure named imports correspond to a named export in the remote file
 	// https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/named.md
-	'import/named': ERROR,
+	'import/named': [
+		ERROR,
+		{
+			commonjs: true
+		}
+	],
 
 	// ensure a default export is present, given a default import
 	// https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/default.md
@@ -29,7 +34,9 @@ const rules = {
 	// https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/namespace.md
 	'import/namespace': [
 		ERROR,
-		{ allowComputed: true }
+		{
+			allowComputed: true
+		}
 	],
 
 	// restrict which files can be imported in a given folder
@@ -57,7 +64,14 @@ const rules = {
 
 	// Forbid importing packages through relative paths.
 	// https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/no-relative-packages.md
-	'import/no-relative-packages': ERROR,
+	'import/no-relative-packages': [
+		ERROR,
+		{
+			commonjs: true,
+			amd: true,
+			esmodule: true
+		}
+	],
 
 	// forbid webpack loader syntax in imports
 	// https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-webpack-loader-syntax.md
@@ -149,7 +163,9 @@ const rules = {
 	// https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-duplicates.md
 	'import/no-duplicates': [
 		WARN,
-		{ considerQueryString: true }
+		{
+			considerQueryString: true
+		}
 	],
 
 	// forbid namespace (a.k.a. "wildcard" *) imports
@@ -194,7 +210,9 @@ const rules = {
 	// https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/newline-after-import.md
 	'import/newline-after-import': [
 		WARN,
-		{ count: 1 }
+		{
+			count: 1
+		}
 	],
 
 	// prefer a default export if module exports a single name
@@ -239,7 +257,12 @@ const rules = {
 
 	// Forbid import statements with CommonJS module.exports.
 	// https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/no-import-module-exports.md
-	'import/no-import-module-exports': ERROR,
+	'import/no-import-module-exports': [
+		ERROR,
+		{
+			exceptions: []
+		}
+	],
 
 	// Forbid empty named import blocks.
 	// https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/no-empty-named-blocks.md

@@ -14,7 +14,9 @@ const rules = {
 	// https://eslint.org/docs/latest/rules/getter-return
 	'getter-return': [
 		WARN,
-		{ allowImplicit: false }
+		{
+			allowImplicit: false
+		}
 	],
 
 	// disallow using an async function as a Promise executor
@@ -38,13 +40,21 @@ const rules = {
 
 	// disallow the use of `console`
 	// https://eslint.org/docs/latest/rules/no-console
-	'no-console': WARN,
+	'no-console': [
+		WARN,
+		{
+			// Note: this option's schema is declared as array with minItems: 1
+			allow: undefined
+		}
+	],
 
 	// disallow constant expressions in conditions
 	// https://eslint.org/docs/latest/rules/no-constant-condition
 	'no-constant-condition': [
 		WARN,
-		{ checkLoops: false }
+		{
+			checkLoops: false
+		}
 	],
 
 	// disallow control characters in regular expressions
@@ -75,7 +85,9 @@ const rules = {
 	// https://eslint.org/docs/latest/rules/no-empty
 	'no-empty': [
 		WARN,
-		{ allowEmptyCatch: true }
+		{
+			allowEmptyCatch: true
+		}
 	],
 
 	// disallow empty character classes in regular expressions
@@ -90,7 +102,9 @@ const rules = {
 	// https://eslint.org/docs/latest/rules/no-extra-boolean-cast
 	'no-extra-boolean-cast': [
 		WARN,
-		{ enforceForLogicalOperands: true }
+		{
+			enforceForLogicalOperands: true
+		}
 	],
 
 	// disallow unnecessary parentheses
@@ -133,7 +147,9 @@ const rules = {
 	// https://eslint.org/docs/latest/rules/no-invalid-regexp
 	'no-invalid-regexp': [
 		WARN,
-		{ allowConstructorFlags: [] }
+		{
+			allowConstructorFlags: []
+		}
 	],
 
 	// disallow irregular whitespace
@@ -166,7 +182,12 @@ const rules = {
 
 	// disallow returning values from Promise executor functions
 	// https://eslint.org/docs/latest/rules/no-promise-executor-return
-	'no-promise-executor-return': WARN,
+	'no-promise-executor-return': [
+		WARN,
+		{
+			allowVoid: false
+		}
+	],
 
 	// disallow calling some `Object.prototype` methods directly on objects
 	// https://eslint.org/docs/latest/rules/no-prototype-builtins
@@ -216,12 +237,19 @@ const rules = {
 	// https://eslint.org/docs/latest/rules/no-unsafe-negation
 	'no-unsafe-negation': [
 		WARN,
-		{ enforceForOrderingRelations: true }
+		{
+			enforceForOrderingRelations: true
+		}
 	],
 
 	// disallow use of optional chaining in contexts where the `undefined` value is not allowed
 	// https://eslint.org/docs/latest/rules/no-unsafe-optional-chaining
-	'no-unsafe-optional-chaining': WARN,
+	'no-unsafe-optional-chaining': [
+		WARN,
+		{
+			disallowArithmeticOperators: true
+		}
+	],
 
 	// Disallow unused private class members
 	// https://eslint.org/docs/latest/rules/no-unused-private-class-members
@@ -233,7 +261,8 @@ const rules = {
 
 	// disallow assignments that can lead to race conditions due to usage of `await` or `yield`
 	// https://eslint.org/docs/latest/rules/require-atomic-updates
-	'require-atomic-updates': WARN,
+	// Note: while this rule promises to flag potentially quite nasty bugs, more often than not it flags false positives
+	'require-atomic-updates': OFF,
 
 	// require calls to `isNaN()` when checking for `NaN`
 	// https://eslint.org/docs/latest/rules/use-isnan
@@ -249,7 +278,9 @@ const rules = {
 	// https://eslint.org/docs/latest/rules/valid-typeof
 	'valid-typeof': [
 		WARN,
-		{ requireStringLiterals: true }
+		{
+			requireStringLiterals: true
+		}
 	],
 
 	// enforce getter and setter pairs in objects and classes
@@ -288,7 +319,12 @@ const rules = {
 
 	// require `return` statements to either always or never specify values
 	// https://eslint.org/docs/latest/rules/consistent-return
-	'consistent-return': WARN,
+	'consistent-return': [
+		WARN,
+		{
+			treatUndefinedAsUnspecified: true
+		}
+	],
 
 	// enforce consistent brace style for all control statements
 	// https://eslint.org/docs/latest/rules/curly
@@ -375,7 +411,9 @@ const rules = {
 	// https://eslint.org/docs/latest/rules/no-else-return
 	'no-else-return': [
 		WARN,
-		{ allowElseIf: false }
+		{
+			allowElseIf: false
+		}
 	],
 
 	// disallow empty functions
@@ -393,7 +431,12 @@ const rules = {
 
 	// disallow empty destructuring patterns
 	// https://eslint.org/docs/latest/rules/no-empty-pattern
-	'no-empty-pattern': WARN,
+	'no-empty-pattern': [
+		WARN,
+		{
+			allowObjectPatternsAsParameters: false
+		}
+	],
 
 	// disallow `null` comparisons without type-checking operators
 	// https://eslint.org/docs/latest/rules/no-eq-null
@@ -402,13 +445,20 @@ const rules = {
 
 	// disallow the use of `eval()`
 	// https://eslint.org/docs/latest/rules/no-eval
-	'no-eval': ERROR,
+	'no-eval': [
+		ERROR,
+		{
+			allowIndirect: false
+		}
+	],
 
 	// disallow extending native types
 	// https://eslint.org/docs/latest/rules/no-extend-native
 	'no-extend-native': [
 		ERROR,
-		{ exceptions: [] }
+		{
+			exceptions: []
+		}
 	],
 
 	// disallow unnecessary calls to `.bind()`
@@ -424,7 +474,9 @@ const rules = {
 	// https://eslint.org/docs/latest/rules/no-fallthrough
 	'no-fallthrough': [
 		WARN,
-		{ commentPattern: 'falls?\\s+through' }
+		{
+			commentPattern: 'falls?\\s+through'
+		}
 	],
 
 	// disallow leading or trailing decimal points in numeric literals
@@ -433,7 +485,12 @@ const rules = {
 
 	// disallow assignments to native objects or read-only global variables
 	// https://eslint.org/docs/latest/rules/no-global-assign
-	'no-global-assign': ERROR,
+	'no-global-assign': [
+		ERROR,
+		{
+			exceptions: []
+		}
+	],
 
 	// disallow shorthand type conversions
 	// https://eslint.org/docs/latest/rules/no-implicit-coercion
@@ -464,7 +521,9 @@ const rules = {
 	// https://eslint.org/docs/latest/rules/no-invalid-this
 	'no-invalid-this': [
 		WARN,
-		{ capIsConstructor: true }
+		{
+			capIsConstructor: true
+		}
 	],
 
 	// disallow the use of the `__iterator__` property
@@ -537,7 +596,12 @@ const rules = {
 
 	// disallow reassigning `function` parameters
 	// https://eslint.org/docs/latest/rules/no-param-reassign
-	'no-param-reassign': ERROR,
+	'no-param-reassign': [
+		ERROR,
+		{
+			props: false
+		}
+	],
 
 	// disallow the use of the `__proto__` property
 	// https://eslint.org/docs/latest/rules/no-proto
@@ -545,7 +609,12 @@ const rules = {
 
 	// disallow variable redeclaration
 	// https://eslint.org/docs/latest/rules/no-redeclare
-	'no-redeclare': ERROR,
+	'no-redeclare': [
+		ERROR,
+		{
+			builtinGlobals: true
+		}
+	],
 
 	// disallow certain properties on certain objects
 	// https://eslint.org/docs/latest/rules/no-restricted-properties
@@ -566,7 +635,9 @@ const rules = {
 	// https://eslint.org/docs/latest/rules/no-self-assign
 	'no-self-assign': [
 		WARN,
-		{ props: true }
+		{
+			props: true
+		}
 	],
 
 	// disallow comparisons where both sides are exactly the same
@@ -575,7 +646,12 @@ const rules = {
 
 	// disallow comma operators
 	// https://eslint.org/docs/latest/rules/no-sequences
-	'no-sequences': WARN,
+	'no-sequences': [
+		WARN,
+		{
+			allowInParentheses: false
+		}
+	],
 
 	// disallow throwing literals as exceptions
 	// https://eslint.org/docs/latest/rules/no-throw-literal
@@ -625,7 +701,9 @@ const rules = {
 	// https://eslint.org/docs/latest/rules/no-void
 	'no-void': [
 		WARN,
-		{ allowAsStatement: true }
+		{
+			allowAsStatement: true
+		}
 	],
 
 	// disallow specified warning terms in comments
@@ -650,14 +728,18 @@ const rules = {
 	// https://eslint.org/docs/latest/rules/prefer-promise-reject-errors
 	'prefer-promise-reject-errors': [
 		WARN,
-		{ allowEmptyReject: false }
+		{
+			allowEmptyReject: false
+		}
 	],
 
 	// disallow use of the `RegExp` constructor in favor of regular expression literals
 	// https://eslint.org/docs/latest/rules/prefer-regex-literals
 	'prefer-regex-literals': [
 		WARN,
-		{ disallowRedundantWrapping: true }
+		{
+			disallowRedundantWrapping: true
+		}
 	],
 
 	// enforce the consistent use of the radix argument when using `parseInt()`
@@ -681,7 +763,9 @@ const rules = {
 	'wrap-iife': [
 		WARN,
 		'inside',
-		{ functionPrototypeMethods: true }
+		{
+			functionPrototypeMethods: true
+		}
 	],
 
 	// require or disallow 'Yoda' conditions
@@ -711,7 +795,9 @@ const rules = {
 	'logical-assignment-operators': [
 		WARN,
 		'always',
-		{ enforceForIfStatements: true }
+		{
+			enforceForIfStatements: true
+		}
 	],
 
 	// disallow deleting variables
@@ -746,7 +832,9 @@ const rules = {
 	// https://eslint.org/docs/latest/rules/no-undef
 	'no-undef': [
 		ERROR,
-		{ 'typeof': false }
+		{
+			'typeof': false
+		}
 	],
 
 	// disallow initializing variables to `undefined`
@@ -825,7 +913,9 @@ const rules = {
 	'brace-style': [
 		WARN,
 		'stroustrup',
-		{ allowSingleLine: false }
+		{
+			allowSingleLine: false
+		}
 	],
 
 	// enforce camelcase naming convention
@@ -873,7 +963,9 @@ const rules = {
 	'comma-style': [
 		WARN,
 		'last',
-		{ exceptions: {} }
+		{
+			exceptions: {}
+		}
 	],
 
 	// enforce consistent spacing inside computed property brackets
@@ -881,7 +973,9 @@ const rules = {
 	'computed-property-spacing': [
 		WARN,
 		'never',
-		{ enforceForClassMembers: true }
+		{
+			enforceForClassMembers: true
+		}
 	],
 
 	// enforce consistent naming when capturing the current execution context
@@ -1074,14 +1168,18 @@ const rules = {
 	'lines-between-class-members': [
 		WARN,
 		'always',
-		{ exceptAfterSingleLine: true }
+		{
+			exceptAfterSingleLine: true
+		}
 	],
 
 	// enforce a maximum depth that blocks can be nested
 	// https://eslint.org/docs/latest/rules/max-depth
 	'max-depth': [
 		WARN,
-		{ max: 5 }
+		{
+			max: 5
+		}
 	],
 
 	// enforce a maximum line length
@@ -1100,14 +1198,18 @@ const rules = {
 	// https://eslint.org/docs/latest/rules/max-nested-callbacks
 	'max-nested-callbacks': [
 		WARN,
-		{ max: 3 }
+		{
+			max: 3
+		}
 	],
 
 	// enforce a maximum number of parameters in function definitions
 	// https://eslint.org/docs/latest/rules/max-params
 	'max-params': [
 		WARN,
-		{ max: 5 }
+		{
+			max: 5
+		}
 	],
 
 	// enforce a maximum number of statements allowed in function blocks
@@ -1118,7 +1220,9 @@ const rules = {
 	// https://eslint.org/docs/latest/rules/max-statements-per-line
 	'max-statements-per-line': [
 		WARN,
-		{ max: 1 }
+		{
+			max: 1
+		}
 	],
 
 	// enforce a particular style for multiline comments
@@ -1154,7 +1258,9 @@ const rules = {
 	// https://eslint.org/docs/latest/rules/newline-per-chained-call
 	'newline-per-chained-call': [
 		WARN,
-		{ ignoreChainWithDepth: 2 }
+		{
+			ignoreChainWithDepth: 2
+		}
 	],
 
 	// disallow `Array` constructors
@@ -1173,7 +1279,9 @@ const rules = {
 	// https://eslint.org/docs/latest/rules/no-inline-comments
 	'no-inline-comments': [
 		WARN,
-		{ ignorePattern: 'webpackChunkName:.+' }
+		{
+			ignorePattern: 'webpackChunkName:.+'
+		}
 	],
 
 	// disallow `if` statements as the only statement in `else` blocks
@@ -1206,7 +1314,12 @@ const rules = {
 
 	// disallow use of chained assignment expressions
 	// https://eslint.org/docs/latest/rules/no-multi-assign
-	'no-multi-assign': WARN,
+	'no-multi-assign': [
+		WARN,
+		{
+			ignoreNonDeclaration: true
+		}
+	],
 
 	// disallow multiple empty lines
 	// https://eslint.org/docs/latest/rules/no-multiple-empty-lines
@@ -1278,7 +1391,12 @@ const rules = {
 
 	// disallow ternary operators when simpler alternatives exist
 	// https://eslint.org/docs/latest/rules/no-unneeded-ternary
-	'no-unneeded-ternary': WARN,
+	'no-unneeded-ternary': [
+		WARN,
+		{
+			defaultAssignment: true
+		}
+	],
 
 	// disallow whitespace before properties
 	// https://eslint.org/docs/latest/rules/no-whitespace-before-property
@@ -1298,9 +1416,15 @@ const rules = {
 				consistent: true,
 				minProperties: 2
 			},
-			ObjectPattern: { multiline: true },
-			ImportDeclaration: { multiline: true },
-			ExportDeclaration: { multiline: true }
+			ObjectPattern: {
+				multiline: true
+			},
+			ImportDeclaration: {
+				multiline: true
+			},
+			ExportDeclaration: {
+				multiline: true
+			}
 		}
 	],
 
@@ -1319,7 +1443,9 @@ const rules = {
 	// https://eslint.org/docs/latest/rules/object-property-newline
 	'object-property-newline': [
 		WARN,
-		{ allowAllPropertiesOnSameLine: false }
+		{
+			allowAllPropertiesOnSameLine: false
+		}
 	],
 
 	// enforce variables to be declared either together or separately in functions
@@ -1369,7 +1495,9 @@ const rules = {
 			classes: 'never',
 			switches: 'never'
 		},
-		{ allowSingleLineBlocks: false }
+		{
+			allowSingleLineBlocks: false
+		}
 	],
 
 	// require or disallow padding lines between statements
@@ -1418,7 +1546,9 @@ const rules = {
 	'semi': [
 		WARN,
 		'always',
-		{ omitLastInOneLineBlock: false }
+		{
+			omitLastInOneLineBlock: false
+		}
 	],
 
 	// enforce consistent spacing before and after semicolons
@@ -1473,12 +1603,19 @@ const rules = {
 	'space-in-parens': [
 		WARN,
 		'never',
-		{ exceptions: [] }
+		{
+			exceptions: []
+		}
 	],
 
 	// require spacing around infix operators
 	// https://eslint.org/docs/latest/rules/space-infix-ops
-	'space-infix-ops': WARN,
+	'space-infix-ops': [
+		WARN,
+		{
+			int32Hint: true
+		}
+	],
 
 	// enforce consistent spacing before or after unary operators
 	// https://eslint.org/docs/latest/rules/space-unary-ops
@@ -1547,7 +1684,9 @@ const rules = {
 	'arrow-parens': [
 		WARN,
 		'as-needed',
-		{ requireForBlockBody: false }
+		{
+			requireForBlockBody: false
+		}
 	],
 
 	// enforce consistent spacing before and after the arrow in arrow functions
@@ -1597,7 +1736,12 @@ const rules = {
 
 	// disallow duplicate module imports
 	// https://eslint.org/docs/latest/rules/no-duplicate-imports
-	'no-duplicate-imports': WARN,
+	'no-duplicate-imports': [
+		WARN,
+		{
+			includeExports: true
+		}
+	],
 
 	// disallow `new` operators with the `Symbol` object
 	// https://eslint.org/docs/latest/rules/no-new-symbol
@@ -1619,7 +1763,9 @@ const rules = {
 	// https://eslint.org/docs/latest/rules/no-useless-computed-key
 	'no-useless-computed-key': [
 		WARN,
-		{ enforceForClassMembers: true }
+		{
+			enforceForClassMembers: true
+		}
 	],
 
 	// disallow unnecessary constructors
@@ -1687,7 +1833,9 @@ const rules = {
 				object: false
 			}
 		},
-		{ enforceForRenamedProperties: false }
+		{
+			enforceForRenamedProperties: false
+		}
 	],
 
 	// disallow `parseInt()` and `Number.parseInt()` in favor of binary, octal, and hexadecimal literals

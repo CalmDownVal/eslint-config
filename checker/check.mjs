@@ -53,8 +53,10 @@ CONFIGS.forEach(config => {
 const HAS_SEEN_CONFIG_FOR = {};
 const ajv = new AJV({ strict: false });
 
-function compileSchema(schema) {
+function schemaCompile(schema) {
 	try {
+		// uncomment to require *all* available options to be set explicitly
+		// schemaMakeRequired(schema);
 		return ajv.compile(schema);
 	}
 	catch (ex) {
@@ -65,11 +67,27 @@ function compileSchema(schema) {
 	}
 }
 
+function schemaMakeRequired(schema, skipPropertyCheck = false) {
+	if (schema === null || typeof schema !== 'object') {
+		return;
+	}
+
+	const declaresProperties = !skipPropertyCheck && Boolean(schema.properties);
+	for (const key of Object.getOwnPropertyNames(schema)) {
+		schemaMakeRequired(schema[key], declaresProperties && key === 'properties');
+	}
+
+	if (declaresProperties) {
+		schema.additionalProperties = false;
+		schema.required = Array.from(Object.getOwnPropertyNames(schema.properties));
+	}
+}
+
 function isDeprecated(ruleName) {
 	return AVAILABLE_RULES[ruleName].meta?.deprecated === true;
 }
 
-const validateSeverity = compileSchema({
+const validateSeverity = schemaCompile({
 	enum: [
 		'off',
 		'warn',
@@ -133,7 +151,7 @@ CONFIGS.forEach(({ name: configName, configuredRules, prefix }) => {
 					console.error();
 				}
 				else if (schema.length > 0) {
-					const validate = compileSchema({
+					const validate = schemaCompile({
 						type: 'array',
 						items: schema
 					});
@@ -142,11 +160,17 @@ CONFIGS.forEach(({ name: configName, configuredRules, prefix }) => {
 						console.error(`Invalid options for '${ruleName}' in '${configName}':`);
 						console.error(validate.errors);
 						console.error();
+						continue;
+					}
+
+					if (options.length < schema.length) {
+						console.warn(`Rule '${ruleName}' in ${configName} does not explicitly declare all available options.`);
+						console.warn();
 					}
 				}
 			}
 			else if (typeof schema === 'object' && schema !== null) {
-				const validate = compileSchema(schema);
+				const validate = schemaCompile(schema);
 				if (!validate(options)) {
 					console.error(`Invalid options for '${ruleName}' in '${configName}':`);
 					console.error(validate.errors);
