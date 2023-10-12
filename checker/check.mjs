@@ -5,7 +5,8 @@ import AJV from 'ajv';
 
 import coreConfig from '../index.js';
 import importConfig from '../import.js';
-import typeScriptConfig from '../typescript.js';
+import typeScriptCoreConfig from '../typescript/index.js';
+import typeScriptImportConfig from '../typescript/import.js';
 
 const CONFIGS = [
 	{
@@ -21,10 +22,16 @@ const CONFIGS = [
 		moduleRules: Object.entries(ImportPlugin.rules)
 	},
 	{
-		name: 'TypeScript',
+		name: 'TypeScript/core',
 		prefix: '@typescript-eslint/',
-		configuredRules: typeScriptConfig.overrides[0].rules,
+		configuredRules: typeScriptCoreConfig.overrides[0].rules,
 		moduleRules: Object.entries(TypeScriptPlugin.rules)
+	},
+	{
+		name: 'TypeScript/import',
+		prefix: 'import/',
+		configuredRules: typeScriptImportConfig.overrides[0].rules,
+		moduleRules: Object.entries(ImportPlugin.rules)
 	}
 ];
 
@@ -58,6 +65,10 @@ function compileSchema(schema) {
 	}
 }
 
+function isDeprecated(ruleName) {
+	return AVAILABLE_RULES[ruleName].meta?.deprecated === true;
+}
+
 const validateSeverity = compileSchema({
 	enum: [
 		'off',
@@ -68,60 +79,65 @@ const validateSeverity = compileSchema({
 
 CONFIGS.forEach(({ name: configName, configuredRules, prefix }) => {
 	for (const ruleName in configuredRules) {
-		if (Object.hasOwn(AVAILABLE_RULES, ruleName)) {
-			HAS_SEEN_CONFIG_FOR[ruleName] = true;
+		if (!Object.hasOwn(AVAILABLE_RULES, ruleName)) {
+			console.error(`Rule '${ruleName}' does not exist but is configured in '${configName}'.`);
+			continue;
+		}
 
-			// check for possibler built-in rule clash
-			if (prefix && ruleName.startsWith(prefix)) {
-				const builtInRuleName = ruleName.slice(prefix.length);
-				if (Object.hasOwn(AVAILABLE_RULES, builtInRuleName) && !Object.hasOwn(configuredRules, builtInRuleName)) {
-					console.warn(`Rule '${ruleName}' seems to override built-in '${builtInRuleName}', but it has not been re-configured.`);
-					console.warn();
+		HAS_SEEN_CONFIG_FOR[ruleName] = true;
+
+		// check deprecation
+		if (isDeprecated(ruleName)) {
+			console.error(`Rule '${ruleName}' is deprecated but is still configured in '${configName}'.`);
+			console.error();
+		}
+
+		// check for possible built-in rule clash
+		if (prefix && ruleName.startsWith(prefix)) {
+			const builtInRuleName = ruleName.slice(prefix.length);
+			if (
+				Object.hasOwn(AVAILABLE_RULES, builtInRuleName) &&
+				!isDeprecated(builtInRuleName) &&
+				!Object.hasOwn(configuredRules, builtInRuleName)
+			) {
+				console.warn(`Rule '${ruleName}' seems to override built-in '${builtInRuleName}', but it has not been re-configured.`);
+				console.warn();
+			}
+		}
+
+		// normalize config
+		let config = configuredRules[ruleName];
+		if (!Array.isArray(config)) {
+			config = [ config ];
+		}
+
+		// validate severity
+		const severity = config[0];
+		if (!validateSeverity(severity)) {
+			console.error(`Invalid severity for rule '${ruleName}' in '${configName}':`);
+			console.error(validateSeverity.errors);
+			console.error();
+			continue;
+		}
+
+		// validate schema of options
+		if (severity !== 'off') {
+			const rule = AVAILABLE_RULES[ruleName];
+			const schema = rule.meta.schema;
+			const options = config.slice(1);
+
+			if (Array.isArray(schema)) {
+				if (schema.length < options.length) {
+					console.error(`Invalid options for '${ruleName}' in '${configName}':`);
+					console.error(`The rule only expects ${schema.length} options but ${options.length} were configured.`);
+					console.error();
 				}
-			}
+				else if (schema.length > 0) {
+					const validate = compileSchema({
+						type: 'array',
+						items: schema
+					});
 
-			// normalize config
-			let config = configuredRules[ruleName];
-			if (!Array.isArray(config)) {
-				config = [ config ];
-			}
-
-			// validate severity
-			const severity = config[0];
-			if (!validateSeverity(severity)) {
-				console.error(`Invalid severity for rule '${ruleName}' in '${configName}':`);
-				console.error(validateSeverity.errors);
-				console.error();
-				continue;
-			}
-
-			// validate schema of options
-			if (severity !== 'off') {
-				const rule = AVAILABLE_RULES[ruleName];
-				const schema = rule.meta.schema;
-				const options = config.slice(1);
-
-				if (Array.isArray(schema)) {
-					if (schema.length < options.length) {
-						console.error(`Invalid options for '${ruleName}' in '${configName}':`);
-						console.error(`The rule only expects ${schema.length} options but ${options.length} were configured.`);
-						console.error();
-					}
-					else if (schema.length > 0) {
-						const validate = compileSchema({
-							type: 'array',
-							items: schema
-						});
-
-						if (!validate(options)) {
-							console.error(`Invalid options for '${ruleName}' in '${configName}':`);
-							console.error(validate.errors);
-							console.error();
-						}
-					}
-				}
-				else if (typeof schema === 'object' && schema !== null) {
-					const validate = compileSchema(schema);
 					if (!validate(options)) {
 						console.error(`Invalid options for '${ruleName}' in '${configName}':`);
 						console.error(validate.errors);
@@ -129,19 +145,22 @@ CONFIGS.forEach(({ name: configName, configuredRules, prefix }) => {
 					}
 				}
 			}
-		}
-		else {
-			console.error(`Rule '${ruleName}' is configured in '${configName}' but does not exist.`);
+			else if (typeof schema === 'object' && schema !== null) {
+				const validate = compileSchema(schema);
+				if (!validate(options)) {
+					console.error(`Invalid options for '${ruleName}' in '${configName}':`);
+					console.error(validate.errors);
+					console.error();
+				}
+			}
 		}
 	}
 });
 
 const missingConfig = [];
 for (const ruleName in AVAILABLE_RULES) {
-	if (!HAS_SEEN_CONFIG_FOR[ruleName]) {
-		if (AVAILABLE_RULES[ruleName].meta?.deprecated !== true) {
-			missingConfig.push(ruleName);
-		}
+	if (!HAS_SEEN_CONFIG_FOR[ruleName] && !isDeprecated(ruleName)) {
+		missingConfig.push(ruleName);
 	}
 }
 

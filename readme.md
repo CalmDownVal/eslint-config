@@ -79,7 +79,7 @@ Import plugin to resolve TS paths correctly.
 
     // additionally, if using eslint-plugin-import:
     "@calmdownval/eslint-config/import",
-    "@calmdownval/eslint-config/typescript-import"
+    "@calmdownval/eslint-config/typescript/import"
   ]
 }
 ```

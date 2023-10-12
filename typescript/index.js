@@ -52,7 +52,7 @@ const rules = {
 		{
 			selector: [ 'memberLike' ],
 			modifiers: [ 'static' ],
-			format: [ 'camelCase', 'UPPER_CASE' ]
+			format: [ 'camelCase', 'PascalCase', 'UPPER_CASE' ]
 		},
 
 		// force PascalCase for enums
@@ -353,7 +353,6 @@ const rules = {
 
 	// enforces consistent returning of awaited values
 	// https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/return-await.md
-	'no-return-await': OFF,
 	'@typescript-eslint/return-await': [
 		WARN,
 		'in-try-catch'
@@ -792,10 +791,6 @@ const rules = {
 			allowedNames: []
 		}
 	],
-
-	// disallow the use of type aliases
-	// https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-type-alias.md
-	'@typescript-eslint/no-type-alias': OFF,
 
 	// flags unnecessary equality comparisons against boolean literals
 	// https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-unnecessary-boolean-literal-compare.md
