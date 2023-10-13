@@ -1,9 +1,9 @@
 {
 	"name": "@calmdownval/eslint-config",
-	"version": "2.1.2",
+	"version": "2.1.4",
 	"license": "ISC",
 	"peerDependencies": {
-		"@calmdownval/eslint-import-resolver": "1.1.0",
+		"@calmdownval/eslint-import-resolver": "1.1.x",
 		"@typescript-eslint/eslint-plugin": "6.7.5",
 		"@typescript-eslint/parser": "6.7.5",
 		"eslint": "8.51.0",
